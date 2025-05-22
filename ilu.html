@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+   <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Quicksand&family=Raleway&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your device will be hacked</title>
+  <style>
+    body {
+      background: #1e1e2f;
+      color: #eee;
+      display: flex;
+      font-family: 'Courier New', Courier, sans-serif;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      margin: 0;
+    }
+
+    #heart {
+      width: 120px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      margin-bottom: 20px;
+       animation: ron 1.5s infinite alternate;
+    }
+
+    #heart:hover {
+      transform: scale(1.5) rotate(-15deg);
+    }
+
+    #output {
+      background: #2e2e44;
+      border-radius: 10px;
+      padding: 20px;
+      width: 80%;
+      max-width: 600px;
+      font-size: 18px;
+      white-space: pre-line;
+      box-shadow: 0 0 15px #e91e63;
+      max-height: 50vh;
+      min-height: 100px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .popup {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      z-index: 999;
+      box-shadow: 0 0 15px #fff;
+      display: none;
+    }
+
+    .popup button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    #yesBtn {
+      background-color: #e91e63;
+      color: white;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    #noBtn {
+      background-color: #f44336;
+      color: white;
+      position: fixed;
+      left: 35%;
+      top: 80%;
+      transition: left 0.15s ease, top 0.15s ease;
+      z-index: 999;
+    }
+
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 10px #e91e63, 0 0 20px #e91e63;
+      }
+      to {
+        box-shadow: 0 0 20px #ff4081, 0 0 30px #ff4081;
+      }
+    }
+@keyframes ron{
+from {
+        transform:scale(1.1) rotate(-15deg);
+      }
+      to {
+        transform:scale(1.1) rotate(25deg);
+      }
+    }
+
+    #invalidMessage {
+      display: none;
+      font-size: 24px;
+      color: #f44336;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="invalidMessage">sử dụng máy tính để truy cập.</div>
+  <img id="heart" src="tim.png" alt="Trái tim" tabindex="0" onerror="this.src='fallback-image.png'" />
+  <div id="output">........ấn vào thư để bắt đầu.......</div>
+
+  <div class="popup" id="popup">
+    <p>(≧◡≦)Em có mến anh không? 🥺</p>
+    <button id="noBtn">Không</button>
+    <button id="yesBtn">Em cóo💖</button>
+  </div>
+
+  <script>
+    const heart = document.getElementById('heart');
+    const output = document.getElementById('output');
+    const popup = document.getElementById('popup');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const invalidMessage = document.getElementById('invalidMessage');
+
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile) {
+      invalidMessage.style.display = 'block';
+      heart.style.display = 'none';
+      output.style.display = 'none';
+      popup.style.display = 'none';
+    } else {
+      let hoverTimeout = null;
+      let isHovering = false;
+
+      noBtn.addEventListener('mouseover', () => {
+        isHovering = true;
+        hoverTimeout = setTimeout(() => {
+          if (!isHovering) return;
+
+          const jumpDistance = 100;
+          let dx = (Math.random() - 0.5) * 2;
+          let dy = (Math.random() - 0.5) * 2;
+          const mag = Math.sqrt(dx * dx + dy * dy);
+          dx /= mag;
+          dy /= mag;
+
+          let currentLeft = parseFloat(noBtn.style.left || `${window.innerWidth / 50}`);
+          let currentTop = parseFloat(noBtn.style.top || `${window.innerHeight / 50}`);
+
+          let newLeft = currentLeft + dx * jumpDistance;
+          let newTop = currentTop + dy * jumpDistance;
+
+          const padding = 10;
+          const maxLeft = window.innerWidth - noBtn.offsetWidth - padding;
+          const maxTop = window.innerHeight - noBtn.offsetHeight - padding;
+
+          if (newLeft < padding || newLeft > maxLeft) dx *= -1;
+          if (newTop < padding || newTop > maxTop) dy *= -1;
+
+          newLeft = Math.max(padding, Math.min(currentLeft + dx * jumpDistance, maxLeft));
+          newTop = Math.max(padding, Math.min(currentTop + dy * jumpDistance, maxTop));
+
+          noBtn.style.left = `${newLeft}px`;
+          noBtn.style.top = `${newTop}px`;
+        }, 30);
+      });
+
+      noBtn.addEventListener('mouseout', () => {
+        isHovering = false;
+        clearTimeout(hoverTimeout);
+      });
+
+      const lines = [
+        ">>> Khởi động chương trình hack trái tim♥️ em... ",
+        "Phát hiện mục tiêu(Trái tim em) đang online, bắt đầu tấn công!",
+        "Đang brute-force nụ cười...",
+        "1_: Cười đi em! (≧◡≦)",
+        "2_: Cười đi em! (≧◡≦)",
+        "3_: Cười đi em! (≧◡≦)",
+        "4_: Cười đi em! (>◡<)",
+        "5_: Cười đi em! (=◡=)",
+        "6_: Cười đi mà! (T◡T)",
+        "7_: Cười đi mà! (T.T)",
+        "8_: Em cười đi mà! (T_T)",
+        " _🥺🥺🥺🥺🥺 🥺🥺🥺🥺🥺_",
+        "Đành thử inject lời khen vào tâm trí em vậy...",
+        "\"Em thật xinh đẹp\"",
+        "...",
+        "\"Anh không cần phép màu, chỉ cần nụ cười em là đủ \"",
+        "...",
+        "Đang kiểm tra kết nối cảm xúc...",
+        "Anh thích em lắm ❤️",
+        ">>>(≧▽≦) Em có mến anh không?(≧◡≦)",
+        "..."
+      ];
+
+      let index = 0;
+      let intervalId = null;
+
+      function runLines() {
+        if (index < lines.length) {
+          output.textContent += "\n" + lines[index];
+          output.scrollTop = output.scrollHeight;
+          index++;
+          if (index === lines.length) {
+            setTimeout(() => {
+              popup.style.display = 'block';
+              const yesRect = yesBtn.getBoundingClientRect();
+              //noBtn.style.left = `${yesRect.left + yesRect.width / 2 - noBtn.offsetWidth / 2}px`;
+             // noBtn.style.top = `${yesRect.bottom + 0}px`;
+            }, 1000);
+          }
+        } else {
+          clearInterval(intervalId);
+        }
+      }
+
+      heart.addEventListener('click', () => {
+        output.textContent = "";
+        index = 0;
+        clearInterval(intervalId);
+        popup.style.display = 'none';
+        intervalId = setInterval(runLines, 1300);
+      });
+
+      heart.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') heart.click();
+      });
+
+      yesBtn.addEventListener('click', () => {
+        popup.innerHTML = "<p>Nhắn tin cho anh biết nhé 💘, yêu em!</p>";
+      });
+
+      noBtn.addEventListener('click', () => {
+        popup.innerHTML = "<p> 🥺🥺🥺🥺🥺</p>";
+ 
+      });
+    }
+  </script>
+</body>
+</html>
+
