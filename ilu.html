@@ -117,6 +117,7 @@ from {
   <div id="invalidMessage">sử dụng máy tính để truy cập.</div>
   <img id="heart" src="tim.png" alt="Trái tim" tabindex="0" onerror="this.src='fallback-image.png'" />
   <div id="output">........ấn vào thư để bắt đầu.......</div>
+<audio id="bgMusic" src="music.mp3" preload="auto"></audio>
 
   <div class="popup" id="popup">
     <p>(≧◡≦)Em có mến anh không? 🥺</p>
@@ -141,6 +142,8 @@ from {
     } else {
       let hoverTimeout = null;
       let isHovering = false;
+      let musicStarted = false;
+
 
       noBtn.addEventListener('mouseover', () => {
         isHovering = true;
@@ -226,6 +229,13 @@ from {
       }
 
       heart.addEventListener('click', () => {
+  const audio = document.getElementById('bgMusic');
+  if (!musicStarted) {
+    audio.volume = 0.2;
+    audio.playbackRate = 1.2;
+    audio.play().catch(e => console.log('Lỗi phát nhạc:', e));
+    musicStarted = true;
+  }
         output.textContent = "";
         index = 0;
         clearInterval(intervalId);
@@ -246,6 +256,17 @@ from {
  
       });
     }
+/*function isInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}*/
+
+
   </script>
 </body>
 </html>
